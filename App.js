@@ -13,7 +13,11 @@ import thunk from 'redux-thunk';
 
 import LandingScreen from './components/auth/landing';
 import RegisterScreen from './components/auth/Register';
+import LoginScreen from './components/auth/Login'
 import MainScreen from './components/Main';
+import FeedScreen from './components/main/Feed'
+import ProfileScreen from './components/main/Profile'
+import AddScreen from './components/main/Add'
 
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -77,6 +81,7 @@ export class App extends Component {
           <Stack.Navigator initialRouteName="Landing">
             <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -84,8 +89,14 @@ export class App extends Component {
 
     return (
       <Provider store={store}>
-        <MainScreen />
-
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Feed" component={FeedScreen} />
+            <Stack.Screen name="Add" component={AddScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     )
   }

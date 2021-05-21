@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/actions/index';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommuntyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+const EmptyScreen = () => {
+    return (null)
+}
+
+const Tab = createBottomTabNavigator();
 
 export class Main extends Component {
     componentDidMount() {
@@ -11,13 +18,53 @@ export class Main extends Component {
     }
     render() {
         return (
-            <View style={{ flex:1, justifyContent: 'center'}}>
-                <Text>User is logged in</Text>
-            </View>
+            <Tab.Navigator>
+                <Tab.Screen name="Feed" component={EmptyScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Feed");
+                        }
+                    })}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommuntyIcons name="home" color={color} size={26} />
+                        ),
+                    }} />
+
+                <Tab.Screen name="AddContainer" component={EmptyScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Add");
+                        }
+                    })}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommuntyIcons name="plus-box" color={color} size={26} />
+                        ),
+                    }} />
+
+                <Tab.Screen name="Profile" component={EmptyScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Profile");
+                        }
+                    })}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommuntyIcons name="account-circle" color={color} size={26} />
+                        ),
+                    }} />
+            </Tab.Navigator>
         )
     }
 }
 
-const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch);
+const mapStateToProps = (store) => ({
+    currentUser: store.userState.currentUser
+})
+const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser }, dispatch);
 
-export default connect(null, mapDispatchProps)(Main);
+export default connect(mapStateToProps, mapDispatchProps)(Main);
