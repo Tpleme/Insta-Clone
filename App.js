@@ -15,8 +15,6 @@ import LandingScreen from './components/auth/landing';
 import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login'
 import MainScreen from './components/Main';
-import FeedScreen from './components/main/Feed'
-import ProfileScreen from './components/main/Profile'
 import AddScreen from './components/main/Add'
 
 
@@ -92,9 +90,7 @@ export class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Feed" component={FeedScreen} />
             <Stack.Screen name="Add" component={AddScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

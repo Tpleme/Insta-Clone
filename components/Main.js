@@ -3,14 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchUser } from '../redux/actions/index';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommuntyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+import FeedScreen from './main/Feed'
+import ProfileScreen from './main/Profile'
 
 const EmptyScreen = () => {
     return (null)
 }
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export class Main extends Component {
     componentDidMount() {
@@ -18,14 +21,8 @@ export class Main extends Component {
     }
     render() {
         return (
-            <Tab.Navigator>
-                <Tab.Screen name="Feed" component={EmptyScreen}
-                    listeners={({ navigation }) => ({
-                        tabPress: event => {
-                            event.preventDefault();
-                            navigation.navigate("Feed");
-                        }
-                    })}
+            <Tab.Navigator initialRouteName="Feed" labeled={false}>
+                <Tab.Screen name="Feed" component={FeedScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommuntyIcons name="home" color={color} size={26} />
@@ -45,13 +42,7 @@ export class Main extends Component {
                         ),
                     }} />
 
-                <Tab.Screen name="Profile" component={EmptyScreen}
-                    listeners={({ navigation }) => ({
-                        tabPress: event => {
-                            event.preventDefault();
-                            navigation.navigate("Profile");
-                        }
-                    })}
+                <Tab.Screen name="Profile" component={ProfileScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommuntyIcons name="account-circle" color={color} size={26} />
